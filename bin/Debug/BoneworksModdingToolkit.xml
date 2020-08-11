@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BoneworksModdingToolkit</name>
+    </assembly>
+    <members>
+        <member name="M:BoneworksModdingToolkit.AssetBundles.LoadBundle(System.String,UnityEngine.AssetBundle@)">
+            <summary>
+            Loads the given bundle from UserData\AssetBundles
+            </summary>
+            <returns>True if the bundle was successfully loaded</returns>
+        </member>
+        <member name="M:BoneworksModdingToolkit.AssetBundles.LoadBundle(System.String,System.Boolean,UnityEngine.AssetBundle@)">
+            <summary>
+            Loads the given bundle from UserData
+            </summary>
+            <returns>True if the bundle was successfully loaded</returns>
+        </member>
+        <member name="M:BoneworksModdingToolkit.BoneHook.CustomHooks.CreateHook(System.Reflection.MethodInfo,System.Reflection.MethodInfo)">
+            <summary>
+            Hook onto any method in the game.
+            </summary>
+            <param name="original">The method you want to hook.</param>
+            <param name="hook">Your hook method. Should be static.</param>
+        </member>
+        <member name="M:BoneworksModdingToolkit.Shaders.ReplaceDummyShaders(UnityEngine.GameObject)">
+            <summary>
+            Replaces dummy shaders on the object with in-game equivalents and missing shaders with Valve/vr_standard.
+            </summary>
+        </member>
+        <member name="M:BoneworksModdingToolkit.Shaders.ReplaceWithValveVRStandard(UnityEngine.GameObject)">
+            <summary>
+            Replaces all shaders on the object with Valve/vr_standard to make it visible in both eyes.
+            </summary>
+        </member>
+        <member name="M:BoneworksModdingToolkit.SimpleFixes.FixObjectShader(UnityEngine.GameObject)">
+            <summary>
+            Deprecated. Replaced with Shaders.ReplaceWithValveVRStandard().
+            </summary>
+        </member>
+        <member name="M:BoneworksModdingToolkit.SpawnMenu.AddItem(UnityEngine.GameObject,System.String,System.Int32,StressLevelZero.Data.CategoryFilters)">
+            <summary>
+            Prefab should be a unique instance of the object.
+            You need to switch levels for new items to show up.
+            </summary>
+        </member>
+        <member name="M:BoneworksModdingToolkit.SpawnMenu.AddItem(UnityEngine.GameObject,System.String,System.Int32,StressLevelZero.Data.CategoryFilters,System.Boolean)">
+            <summary>
+            Prefab should be a unique instance of the object.
+            You need to switch levels for new items to show up.
+            </summary>
+        </member>
+        <member name="M:BoneworksModdingToolkit.SpawnMenu.AddSpawnable(StressLevelZero.Data.SpawnableObject)">
+            <summary>
+            Just ignore this unless you know what you're doing.
+            </summary>
+        </member>
+        <member name="M:BoneworksModdingToolkit.SpawnMenu.UpdatePools">
+            <summary>
+            Destroys existing pools and creates new ones
+            </summary>
+        </member>
+    </members>
+</doc>
