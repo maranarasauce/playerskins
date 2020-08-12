@@ -43,47 +43,45 @@ namespace PlayerSkins
                 }
             }
         }
-
-        public override void OnUpdate()
+        public override void OnFixedUpdate()
         {
-            if (Input.GetKeyDown(KeyCode.U))
-            {
-                LoadSkin(Environment.CurrentDirectory + "\\UserData\\PlayerSkins\\kachujin.body");
-            }
             if (skinned && currentLoadedSkin)
             {
                 int i = 0;
                 try
                 {
                     Croot.LoadTrans(root); i++;
-                    Croot.eulerAngles -= new Vector3(-180, -90, 89.99999f);
+
                     CHipL.LoadTrans(HipL); i++;
-                    CHipL.eulerAngles -= new Vector3(-255.891f, -9.779999f, 167.094f);
                     CKneeL.LoadTrans(KneeL); i++;
                     CAnkleL.LoadTrans(AnkleL); i++;
                     CFootL.LoadTrans(FootL); i++;
-                    FootL.eulerAngles -= new Vector3(0, 82.90501f, 0);
                     CToeL.LoadTrans(ToeL); i++;
+
                     CHipR.LoadTrans(HipR); i++;
-                    CHipR.eulerAngles -= new Vector3(-104.102f, 9.76799f, -12.603f);
                     CKneeR.LoadTrans(KneeR); i++;
                     CAnkleR.LoadTrans(AnkleR); i++;
                     CFootR.LoadTrans(FootR); i++;
-                    CFootR.eulerAngles -= new Vector3(0, 82.90501f, 0);
                     CToeR.LoadTrans(ToeR); i++;
+
                     CSpine1.LoadTrans(Spine1); i++;
-                    CSpine1.eulerAngles -= new Vector3(0.042f, -0.057f, -30.129f);
                     CSpine2.LoadTrans(Spine2); i++;
-                    CSpine2.eulerAngles -= new Vector3(-0.045f, -0.017f, 18.259f);
                     CSpineTop.LoadTrans(SpineTop); i++;
-                    CSpineTop.eulerAngles -= new Vector3(-0.005f, -0.049f, 11.871f);
+
                     CNeck.LoadTrans(Neck); i++;
                     CNeck2.LoadTrans(Neck2); i++;
                     CNeckTop.LoadTrans(NeckTop); i++;
+
+                    CClavicleL.LoadTrans(ClavicleL); i++;
+                    CAuxL.LoadTrans(AuxL); i++;
                     CShoulderL.LoadTrans(ShoulderL); i++;
-                    CArmUpperL.LoadTrans(ArmUpperL); i++;
-                    CArmLowerL.LoadTrans(ElbowL); i++;
+                    CArmLowerL.LoadTrans(ArmLowerL); i++;
+                    CElbowL.LoadTrans(ElbowL); i++;
+                    CWristL.LoadTrans(WristL); i++;
+                    CHandL.LoadTrans(HandL); i++;
                     CHand2L.LoadTrans(Hand2L); i++;
+
+                    CHandOpenL.LoadTrans(HandOpenL); i++;
                     CLFinger11.LoadTrans(LFinger11); i++;
                     CLFinger12.LoadTrans(LFinger12); i++;
                     CLFinger13.LoadTrans(LFinger13); i++;
@@ -104,10 +102,17 @@ namespace PlayerSkins
                     CLFinger52.LoadTrans(LFinger52); i++;
                     CLFinger53.LoadTrans(LFinger53); i++;
                     CLFinger54.LoadTrans(LFinger54); i++;
+                    CClavicleR.LoadTrans(ClavicleR); i++;
+
+                    CAuxR.LoadTrans(AuxR); i++;
                     CShoulderR.LoadTrans(ShoulderR); i++;
                     CArmUpperR.LoadTrans(ArmUpperR); i++;
-                    CArmLowerR.LoadTrans(ElbowR); i++;
+                    CArmLowerR.LoadTrans(ArmLowerR); i++;
+                    CElbowR.LoadTrans(ElbowR); i++;
+                    CWristR.LoadTrans(WristR); i++;
+                    CHandR.LoadTrans(HandR); i++;
                     CHand2R.LoadTrans(Hand2R); i++;
+                    CHandOpenR.LoadTrans(HandOpenL); i++;
                     CRFinger11.LoadTrans(RFinger11); i++;
                     CRFinger12.LoadTrans(RFinger12); i++;
                     CRFinger13.LoadTrans(RFinger13); i++;
@@ -128,12 +133,22 @@ namespace PlayerSkins
                     CRFinger52.LoadTrans(RFinger52); i++;
                     CRFinger53.LoadTrans(RFinger53); i++;
                     CRFinger54.LoadTrans(LFinger54); i++;
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     MelonLogger.LogError("Caught error at line " + i.ToString()); ;
                     MelonLogger.LogError(e.Message);
                 }
             }
+        }
+        public override void OnUpdate()
+        {
+            if (Input.GetKeyDown(KeyCode.U))
+            {
+                LoadSkin(Environment.CurrentDirectory + "\\UserData\\PlayerSkins\\ford.body");
+            }
+            
+
         }
 
         GameObject currentLoadedSkin;
@@ -162,109 +177,178 @@ namespace PlayerSkins
                 try
                 {
                     i++;
-                    GameObject asset = currentLoadedBundle.LoadAsset("Assets/kachujin_g_rosales_game.prefab").Cast<GameObject>();
+                    GameObject asset = currentLoadedBundle.LoadAsset("Assets/PlayerSkin.prefab").Cast<GameObject>();
                     i++;
+                    
                     currentLoadedSkin = Instantiate(asset);
                     i++;
+                    if (currentLoadedSkin.GetComponent<Animator>() != null){
+                        GameObject.Destroy(currentLoadedSkin.GetComponent<Animator>());
+                    }
+                    
                     BoneworksModdingToolkit.SimpleFixes.FixObjectShader(currentLoadedSkin);
                     i++;
-                    Croot = currentLoadedSkin.transform.GetChild(0).GetChild(0);
+                    Croot = currentLoadedSkin.transform.Find("SHJntGrp/MAINSHJnt/ROOTSHJnt");
                     i++;
-                    CHipL = Croot.GetChild(0);
-                    
+                    CHipL = Croot.Find("l_Leg_HipSHJnt");
                     i++;
-                    CKneeL = CHipL.GetChild(0);
+                    CKneeL = Croot.Find("l_Leg_HipSHJnt/l_Leg_KneeSHJnt");
                     i++;
-                    CAnkleL = CKneeL.GetChild(0);
+                    CAnkleL = Croot.Find("l_Leg_HipSHJnt/l_Leg_KneeSHJnt/l_Leg_AnkleSHJnt");
                     i++;
-                    CFootL = CAnkleL.GetChild(0);
-                    i++;
-                    CToeL = CFootL.GetChild(0);
-                    i++;
-                    CHipR = Croot.GetChild(1);
-                    
-                    i++;
-                    CKneeR = CHipR.GetChild(0);
-                    i++;
-                    CAnkleR = CKneeR.GetChild(0);
-                    i++;
-                    CFootR = CAnkleR.GetChild(0);
-                    
-                    i++;
-                    CToeR = CFootR.GetChild(0);
-                    i++;
-                    CSpine1 = Croot.GetChild(2);
-                    i++;
-                    CSpine2 = CSpine1.GetChild(0);
-                    i++;
-                    CSpineTop = CSpine2.GetChild(0);
-                    i++;
-                    CNeck = CSpineTop.GetChild(1);
-                    i++;
-                    CNeck2 = CNeck.GetChild(0);
-                    i++;
-                    CNeckTop = CNeck2.GetChild(0);
-                    i++;
-                    //Left Arm
-                    //CClavicleL = CSpine2.GetChild(0);
-                    //CAuxL = CClavicleL.GetChild(0);
-                    i++;
-                    CShoulderL = CSpineTop.GetChild(0); i++;
-                    CArmUpperL = CShoulderL.GetChild(0); i++;
-                    //CElbowL = CArmUpperL.GetChild(0);
-                    CArmLowerL = CArmUpperL.GetChild(0); i++;
-                    CHand2L = CArmLowerL.GetChild(0); i++;
-                    //Left Fingers
-                    CLFinger11 = CHand2L.GetChild(0); i++;
-                    CLFinger12 = CLFinger11.GetChild(0); i++;
-                    CLFinger13 = CLFinger12.GetChild(0); i++;
-                    CLFinger14 = CLFinger13.GetChild(0); i++;
-                    CLFinger21 = CHand2L.GetChild(1); i++;
-                    CLFinger22 = CLFinger21.GetChild(0); i++;
-                    CLFinger23 = CLFinger22.GetChild(0); i++;
-                    CLFinger24 = CLFinger23.GetChild(0); i++;
-                    CLFinger31 = CHand2L.GetChild(2); i++;
-                    CLFinger32 = CLFinger31.GetChild(0); i++;
-                    CLFinger33 = CLFinger32.GetChild(0); i++;
-                    CLFinger34 = CLFinger33.GetChild(0); i++;
-                    CLFinger41 = CHand2L.GetChild(3); i++;
-                    CLFinger42 = CLFinger41.GetChild(0); i++;
-                    CLFinger43 = CLFinger42.GetChild(0); i++;
-                    CLFinger44 = CLFinger43.GetChild(0); i++;
-                    CLFinger51 = CHand2L.GetChild(4); i++;
-                    CLFinger52 = CLFinger51.GetChild(0); i++;
-                    CLFinger53 = CLFinger52.GetChild(0); i++;
-                    CLFinger54 = CLFinger53.GetChild(0); i++;
+                    CFootL = Croot.Find("l_Leg_HipSHJnt/l_Leg_KneeSHJnt/l_Leg_AnkleSHJnt/l_Leg_BallSHJnt");
 
-                    //Right Arm
-                    //CClavicleR = CSpine2.GetChild(0);
-                    //CAuxR = CClavicleR.GetChild(0);
-                    CShoulderR = CSpineTop.GetChild(2); i++;
-                    CArmUpperR = CShoulderR.GetChild(0); i++;
-                    //CElbowR = CArmUpperR.GetChild(0);
-                    CArmLowerR = CArmUpperR.GetChild(0); i++;
-                    CHand2R = CArmLowerR.GetChild(0); i++;
-                    //Right Fingers
-                    CRFinger11 = CHand2R.GetChild(0); i++;
-                    CRFinger12 = CRFinger11.GetChild(0); i++;
-                    CRFinger13 = CRFinger12.GetChild(0); i++;
-                    CRFinger14 = CRFinger13.GetChild(0); i++;
-                    CRFinger21 = CHand2R.GetChild(1); i++;
-                    CRFinger22 = CRFinger21.GetChild(0); i++;
-                    CRFinger23 = CRFinger22.GetChild(0); i++;
-                    CRFinger24 = CRFinger23.GetChild(0); i++;
-                    CRFinger31 = CHand2R.GetChild(2); i++;
-                    CRFinger32 = CRFinger31.GetChild(0); i++;
-                    CRFinger33 = CRFinger32.GetChild(0); i++;
-                    CRFinger34 = CRFinger33.GetChild(0); i++;
-                    CRFinger41 = CHand2R.GetChild(3); i++;
-                    CRFinger42 = CRFinger41.GetChild(0); i++;
-                    CRFinger43 = CRFinger42.GetChild(0); i++;
-                    CRFinger44 = CRFinger43.GetChild(0); i++;
-                    CRFinger51 = CHand2R.GetChild(4); i++;
-                    CRFinger52 = CRFinger51.GetChild(0); i++;
-                    CRFinger53 = CRFinger52.GetChild(0); i++;
-                    CRFinger54 = CRFinger53.GetChild(0); i++;
+                    i++;
+                    CToeL = Croot.Find("l_Leg_HipSHJnt/l_Leg_KneeSHJnt/l_Leg_AnkleSHJnt/l_Leg_BallSHJnt/l_Leg_ToeSHJnt");
+                    i++;
+
+                    CHipR = Croot.Find("r_Leg_HipSHJnt");
+                    i++;
+                    CKneeR = Croot.Find("r_Leg_HipSHJnt/r_Leg_KneeSHJnt");
+                    i++;
+                    CAnkleR = Croot.Find("r_Leg_HipSHJnt/r_Leg_KneeSHJnt/r_Leg_AnkleSHJnt");
+                    i++;
+                    CFootR = Croot.Find("r_Leg_HipSHJnt/r_Leg_KneeSHJnt/r_Leg_AnkleSHJnt/r_Leg_BallSHJnt");
+                    
+                    i++;
+                    CToeR = Croot.Find("r_Leg_HipSHJnt/r_Leg_KneeSHJnt/r_Leg_AnkleSHJnt/r_Leg_BallSHJnt/r_Leg_ToeSHJnt");
+                    i++;
+
+                    CSpine1 = Croot.Find("Spine_01SHJnt");
+                    i++;
+                    CSpine2 = Croot.Find("Spine_01SHJnt/Spine_02SHJnt");
+                    i++;
+                    CSpineTop = Croot.Find("Spine_01SHJnt/Spine_02SHJnt/Spine_TopSHJnt");
+                    i++;
+                    CNeck = Croot.Find("Spine_01SHJnt/Spine_02SHJnt/Spine_TopSHJnt/Neck_01SHJnt");
+                    i++;
+                    CNeck2 = Croot.Find("Spine_01SHJnt/Spine_02SHJnt/Spine_TopSHJnt/Neck_01SHJnt/Neck_02SHJnt");
+                    i++;
+                    CNeckTop = Croot.Find("Spine_01SHJnt/Spine_02SHJnt/Spine_TopSHJnt/Neck_01SHJnt/Neck_02SHJnt/Neck_TopSHJnt");
+                    i++;
+
+                    //Left ARM
+                    CClavicleL = Croot.Find("Spine_01SHJnt/Spine_02SHJnt/Spine_TopSHJnt/l_Arm_ClavicleSHJnt");
+                    i++;
+                    CAuxL = Croot.Find("Spine_01SHJnt/Spine_02SHJnt/Spine_TopSHJnt/l_Arm_ClavicleSHJnt/l_AC_AuxSHJnt");
+                    i++;
+                    CShoulderL = Croot.Find("Spine_01SHJnt/Spine_02SHJnt/Spine_TopSHJnt/l_Arm_ClavicleSHJnt/l_AC_AuxSHJnt/l_Arm_ShoulderSHJnt");
+                    i++;
+                    CArmUpperL = Croot.Find("Spine_01SHJnt/Spine_02SHJnt/Spine_TopSHJnt/l_Arm_ClavicleSHJnt/l_AC_AuxSHJnt/l_Arm_ShoulderSHJnt/l_Arm_Upper_Curve1SHJnt");
+                    i++;
+                    CElbowL = Croot.Find("Spine_01SHJnt/Spine_02SHJnt/Spine_TopSHJnt/l_Arm_ClavicleSHJnt/l_AC_AuxSHJnt/l_Arm_ShoulderSHJnt/l_Arm_Elbow_CurveSHJnt");
+                    i++;
+                    CArmLowerL = Croot.Find("Spine_01SHJnt/Spine_02SHJnt/Spine_TopSHJnt/l_Arm_ClavicleSHJnt/l_AC_AuxSHJnt/l_Arm_ShoulderSHJnt/l_Arm_Elbow_CurveSHJnt/l_Arm_Lower_Curve1SHJnt");
+                    i++;
+                    CWristL = Croot.Find("Spine_01SHJnt/Spine_02SHJnt/Spine_TopSHJnt/l_Arm_ClavicleSHJnt/l_AC_AuxSHJnt/l_Arm_ShoulderSHJnt/l_Arm_Elbow_CurveSHJnt/l_WristSHJnt");
+                    i++;
+                    CHandL = Croot.Find("Spine_01SHJnt/Spine_02SHJnt/Spine_TopSHJnt/l_Arm_ClavicleSHJnt/l_AC_AuxSHJnt/l_Arm_ShoulderSHJnt/l_Arm_Elbow_CurveSHJnt/l_WristSHJnt/l_Hand_1SHJnt");
+                    i++;
+                    CHand2L = CHandL.GetChild(0);
+                    i++;
+                    CHandOpenL = Croot.Find("Spine_01SHJnt/Spine_02SHJnt/Spine_TopSHJnt/l_Arm_ClavicleSHJnt/l_AC_AuxSHJnt/l_Arm_ShoulderSHJnt/l_Arm_Elbow_CurveSHJnt/l_WristSHJnt/l_Hand_1SHJnt/l_Hand_2SHJnt_open");
+                    i++;
+                    CLFinger11 = CHand2L.GetChild(0);
+                    i++;
+                    CLFinger12 = CLFinger11.GetChild(0);
+                    i++;
+                    CLFinger13 = CLFinger12.GetChild(0);
+                    i++;
+                    CLFinger14 = CLFinger13.GetChild(0);
+                    i++;
+                    CLFinger21 = CHand2L.GetChild(1);
+                    i++;
+                    CLFinger22 = CLFinger21.GetChild(0);
+                    i++;
+                    CLFinger23 = CLFinger22.GetChild(0);
+                    i++;
+                    CLFinger24 = CLFinger23.GetChild(0);
+                    i++;
+                    CLFinger31 = CHand2L.GetChild(2);
+                    i++;
+                    CLFinger32 = CLFinger31.GetChild(0);
+                    i++;
+                    CLFinger33 = CLFinger32.GetChild(0);
+                    i++;
+                    CLFinger34 = CLFinger33.GetChild(0);
+                    i++;
+                    CLFinger41 = CHand2L.GetChild(3);
+                    i++;
+                    CLFinger42 = CLFinger41.GetChild(0);
+                    i++;
+                    CLFinger43 = CLFinger42.GetChild(0);
+                    i++;
+                    CLFinger44 = CLFinger43.GetChild(0);
+                    i++;
+                    CLFinger51 = CHand2L.GetChild(5);
+                    i++;
+                    CLFinger52 = CLFinger51.GetChild(0);
+                    i++;
+                    CLFinger53 = CLFinger52.GetChild(0);
+                    i++;
+                    CLFinger54 = CLFinger53.GetChild(0);
+                    i++;
+                    //Right ARM
+                    CClavicleR = Croot.Find("Spine_01SHJnt/Spine_02SHJnt/Spine_TopSHJnt/r_Arm_ClavicleSHJnt");
+                    i++;
+                    CAuxR = Croot.Find("Spine_01SHJnt/Spine_02SHJnt/Spine_TopSHJnt/r_Arm_ClavicleSHJnt/r_AC_AuxSHJnt");
+                    i++;
+                    CShoulderR = Croot.Find("Spine_01SHJnt/Spine_02SHJnt/Spine_TopSHJnt/r_Arm_ClavicleSHJnt/r_AC_AuxSHJnt/r_Arm_ShoulderSHJnt");
+                    i++;
+                    CArmUpperR = Croot.Find("Spine_01SHJnt/Spine_02SHJnt/Spine_TopSHJnt/r_Arm_ClavicleSHJnt/r_AC_AuxSHJnt/r_Arm_ShoulderSHJnt/r_Arm_Upper_Curve1SHJnt");
+                    i++;
+                    CElbowR = Croot.Find("Spine_01SHJnt/Spine_02SHJnt/Spine_TopSHJnt/r_Arm_ClavicleSHJnt/r_AC_AuxSHJnt/r_Arm_ShoulderSHJnt/r_Arm_Elbow_CurveSHJnt");
+                    i++;
+                    CArmLowerR = Croot.Find("Spine_01SHJnt/Spine_02SHJnt/Spine_TopSHJnt/r_Arm_ClavicleSHJnt/r_AC_AuxSHJnt/r_Arm_ShoulderSHJnt/r_Arm_Elbow_CurveSHJnt/r_Arm_Lower_Curve1SHJnt");
+                    i++;
+                    CWristR = Croot.Find("Spine_01SHJnt/Spine_02SHJnt/Spine_TopSHJnt/r_Arm_ClavicleSHJnt/r_AC_AuxSHJnt/r_Arm_ShoulderSHJnt/r_Arm_Elbow_CurveSHJnt/r_WristSHJnt");
+                    i++;
+                    CHandR = Croot.Find("Spine_01SHJnt/Spine_02SHJnt/Spine_TopSHJnt/r_Arm_ClavicleSHJnt/r_AC_AuxSHJnt/r_Arm_ShoulderSHJnt/r_Arm_Elbow_CurveSHJnt/r_WristSHJnt/r_Hand_1SHJnt");
+                    i++;
+                    CHand2R = Croot.Find("Spine_01SHJnt/Spine_02SHJnt/Spine_TopSHJnt/r_Arm_ClavicleSHJnt/r_AC_AuxSHJnt/r_Arm_ShoulderSHJnt/r_Arm_Elbow_CurveSHJnt/r_WristSHJnt/r_Hand_1SHJnt/r_Hand_2SHJnt");
+                    i++;
+                    CHandOpenR = Croot.Find("Spine_01SHJnt/Spine_02SHJnt/Spine_TopSHJnt/r_Arm_ClavicleSHJnt/r_AC_AuxSHJnt/r_Arm_ShoulderSHJnt/r_Arm_Elbow_CurveSHJnt/r_WristSHJnt/r_Hand_1SHJnt/r_Hand_2SHJnt_open");
+                    i++;
+                    CRFinger11 = CHand2R.GetChild(0);
+                    i++;
+                    CRFinger12 = CRFinger11.GetChild(0);
+                    i++;
+                    CRFinger13 = CRFinger12.GetChild(0);
+                    i++;
+                    CRFinger14 = CRFinger13.GetChild(0);
+                    i++;
+                    CRFinger21 = CHand2R.GetChild(1);
+                    i++;
+                    CRFinger22 = CRFinger21.GetChild(0);
+                    i++;
+                    CRFinger23 = CRFinger22.GetChild(0);
+                    i++;
+                    CRFinger24 = CRFinger23.GetChild(0);
+                    i++;
+                    CRFinger31 = CHand2R.GetChild(2);
+                    i++;
+                    CRFinger32 = CRFinger31.GetChild(0);
+                    i++;
+                    CRFinger33 = CRFinger32.GetChild(0);
+                    i++;
+                    CRFinger34 = CRFinger33.GetChild(0);
+                    i++;
+                    CRFinger41 = CHand2R.GetChild(3);
+                    i++;
+                    CRFinger42 = CRFinger41.GetChild(0);
+                    i++;
+                    CRFinger43 = CRFinger42.GetChild(0);
+                    i++;
+                    CRFinger44 = CRFinger43.GetChild(0);
+                    i++;
+                    CRFinger51 = CHand2R.GetChild(5);
+                    i++;
+                    CRFinger52 = CRFinger51.GetChild(0);
+                    i++;
+                    CRFinger53 = CRFinger52.GetChild(0);
+                    i++;
+                    CRFinger54 = CRFinger53.GetChild(0);
+                    i++;
 
                     skinned = true;
 
@@ -277,6 +361,9 @@ namespace PlayerSkins
                 }
                 
                 
+            } else
+            {
+                MelonLogger.LogError("Null");
             }
         }
 
@@ -414,7 +501,7 @@ namespace PlayerSkins
                     i++;
                     ElbowR = root.Find("Spine_01SHJnt/Spine_02SHJnt/Spine_TopSHJnt/r_Arm_ClavicleSHJnt/r_AC_AuxSHJnt/r_Arm_ShoulderSHJnt/r_Arm_Elbow_CurveSHJnt");
                     i++;
-                    ArmLowerR = root.Find("Spine_01SHJnt/Spine_02SHJnt/Spine_TopSHJnt/r_Arm_ClavicleSHJnt/r_AC_AuxSHJnt/r_Arm_ShoulderSHJnt/r_Arm_Elbow_CurveSHJnt/r_Arm_Rower_Curve1SHJnt");
+                    ArmLowerR = root.Find("Spine_01SHJnt/Spine_02SHJnt/Spine_TopSHJnt/r_Arm_ClavicleSHJnt/r_AC_AuxSHJnt/r_Arm_ShoulderSHJnt/r_Arm_Elbow_CurveSHJnt/r_Arm_Lower_Curve1SHJnt");
                     i++;
                     WristR = root.Find("Spine_01SHJnt/Spine_02SHJnt/Spine_TopSHJnt/r_Arm_ClavicleSHJnt/r_AC_AuxSHJnt/r_Arm_ShoulderSHJnt/r_Arm_Elbow_CurveSHJnt/r_WristSHJnt");
                     i++;
@@ -653,7 +740,6 @@ namespace PlayerSkins
         Transform CRFinger52;
         Transform CRFinger53;
         Transform CRFinger54;
-
     }
 
     public static class TransformExtention
