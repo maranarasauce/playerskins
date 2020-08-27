@@ -58,24 +58,17 @@ namespace PlayerSkins
 
         }
 
-
+        FingerCurl fingerCurl;
         public override void OnUpdate()
         {
             if (Input.GetKeyDown(KeyCode.U))
             {
                 LoadSkin(Environment.CurrentDirectory + "\\UserData\\PlayerSkins\\ford.body");
             }
-            if (Input.GetKeyDown(KeyCode.I))
+            if (fingerCurl)
             {
-
+                MelonLogger.Log(fingerCurl.index.ToString());
             }
-            /*if (skinned)
-            {
-                AnimatorClipInfo[] m_CurrentClipInfo = animator.GetCurrentAnimatorClipInfo(0);
-                MelonLogger.Log("New: " + m_CurrentClipInfo[0].clip.name);
-                AnimatorClipInfo[] old_CurrentClipInfo = oldAnimator.GetCurrentAnimatorClipInfo(0);
-                MelonLogger.Log("Old: " + old_CurrentClipInfo[0].clip.name);
-            }*/
             
         }
         Animator oldAnimator;
@@ -109,8 +102,10 @@ namespace PlayerSkins
         AssetBundle currentLoadedBundle;
         public void LoadSkin(string path)
         {
+           
+
             brett_body.enabled = false;
-            Destroy(brett_l_hand);
+            brett_l_hand.enabled = false;
             brett_r_hand.enabled = false;
             shoulderStraps.enabled = false;
             belt_mesh.enabled = false;
@@ -129,7 +124,7 @@ namespace PlayerSkins
 
                     BoneworksModdingToolkit.Shaders.ReplaceDummyShaders(currentLoadedSkin);
                     BoneworksModdingToolkit.SimpleFixes.FixObjectShader(currentLoadedSkin);
-                    
+
                     i = AddUp(i);
                     CharacterAnimationManager originalManager = Brett_neutral.GetComponent<CharacterAnimationManager>(); i = AddUp(i);
                     SLZ_BodyBlender originalBodyBlender = Brett_neutral.GetComponent<SLZ_BodyBlender>(); i = AddUp(i);
@@ -138,18 +133,20 @@ namespace PlayerSkins
                     RealtimeSkeletonRig skelebonesRig = GameObject.Find("[RigManager (Default Brett)]/[SkeletonRig (Realtime SkeleBones)]").GetComponent<RealtimeSkeletonRig>();
                     Animator originalAnimator = Brett_neutral.GetComponent<Animator>(); i = AddUp(i);
                     Animator newAnimator = currentLoadedSkin.GetComponent<Animator>(); i = AddUp(i);
+                    RigManager rigManager = GameObject.Find("[RigManager (Default Brett)]").GetComponent<RigManager>();
+                    rigManager.gameObject.SetActive(false);
                     animator = newAnimator;
                     oldAnimator = originalAnimator;
-                    //newAnimator.enabled = false;
-                    //newAnimator.runtimeAnimatorController = originalAnimator.runtimeAnimatorController; i = AddUp(i);
+                    newAnimator.enabled = false;
+                    newAnimator.runtimeAnimatorController = originalAnimator.runtimeAnimatorController;
                     //Debug.Log(newAnimator.runtimeAnimatorController.name);
                     CharacterAnimationManager newManager = currentLoadedSkin.AddComponent<CharacterAnimationManager>();
                     SLZ_BodyBlender newBodyBlender = currentLoadedSkin.AddComponent<SLZ_BodyBlender>(); i = AddUp(i);
                     originalBody.ArtToBlender = newBodyBlender; i = AddUp(i);
 
-                    SkeletonHand skeleHand = GameObject.Find("[RigManager (Default Brett)]/[SkeletonRig (Realtime SkeleBones)]/Hand (left)").GetComponent<SkeletonHand>();;
+                    SkeletonHand skeleHand = rigManager.transform.Find("[SkeletonRig (Realtime SkeleBones)]/Hand (left)").GetComponent<SkeletonHand>();;
 
-                    //newManager.animator = currentLoadedSkin.GetComponent<Animator>();
+                    newManager.animator = newAnimator;
                     newManager.data = originalManager.data; i = AddUp(i);
                     newManager.leftHandTransform = currentLoadedSkin.transform.Find("SHJntGrp/MAINSHJnt/ROOTSHJnt/Spine_01SHJnt/Spine_02SHJnt/Spine_TopSHJnt/l_Arm_ClavicleSHJnt/l_AC_AuxSHJnt/l_Arm_ShoulderSHJnt/l_Arm_Elbow_CurveSHJnt/l_WristSHJnt/l_Hand_1SHJnt/l_Hand_2SHJnt"); i = AddUp(i);
                     newManager.leftHandleTransform = newManager.leftHandTransform.Find("l_GripPoint_AuxSHJnt"); i = AddUp(i);
@@ -187,26 +184,26 @@ namespace PlayerSkins
                     newBodyBlender.mkRefs = originalBodyBlender.mkRefs; i = AddUp(i);
                     newBodyBlender.mkTransformPos = originalBodyBlender.mkTransformPos; i = AddUp(i);
                     newBodyBlender.mkTransformRot = originalBodyBlender.mkTransformRot; i = AddUp(i);
-                    newBodyBlender = newBodyBlender;
-                     i = AddUp(i);
-                    RigManager rigManager = GameObject.Find("[RigManager (Default Brett)]").GetComponent<RigManager>();
-                    FingerCurl fingerCurl = rigManager.physicsRig.rightHand.fingerCurl;
-                    GameObject skeletonGO = skeletonRig.gameObject;
-                    GameObject.Destroy(skeletonRig);
-                    GameWorldSkeletonRig newSkeletonRig = skeletonGO.AddComponent<GameWorldSkeletonRig>();
-                    newSkeletonRig.m_leftHand = skeletonGO.transform.Find("Hand (left)");
-                    newSkeletonRig.m_rightHand = skeletonGO.transform.Find("Hand (right)");
-                    newSkeletonRig.m_head = skeletonGO.transform.Find("Head");
-                    newSkeletonRig.m_chest = null;
-                    newSkeletonRig.m_pelvis = skeletonGO.transform.Find("Pelvis");
-                    newSkeletonRig.m_leftFoot = skeletonGO.transform.Find("Foot (left)");
-                    newSkeletonRig.m_rightFoot = skeletonGO.transform.Find("Hand (right)");
-                    newSkeletonRig.characterAnimationManager = newManager;
-                    rigManager.gameWorldSkeletonRig = newSkeletonRig;
-                    rigManager.gameWorldSkeletonRig.GetNextRig();
+                    MelonLogger.Log("Filling bones...");
+                    newBodyBlender.AutoFillBones();
+                    MelonLogger.Log("Bones filled.");
+                    
+                    fingerCurl = rigManager.physicsRig.rightHand.fingerCurl; i = AddUp(i);
+                    GameObject skeletonGO = skeletonRig.gameObject; i = AddUp(i);
+                    GameObject.Destroy(skeletonRig); i = AddUp(i);
+                    GameWorldSkeletonRig newSkeletonRig = skeletonGO.AddComponent<GameWorldSkeletonRig>(); i = AddUp(i);
+                    newSkeletonRig.m_leftHand = skeletonGO.transform.Find("Hand (left)"); i = AddUp(i);
+                    newSkeletonRig.m_rightHand = skeletonGO.transform.Find("Hand (right)"); i = AddUp(i);
+                    newSkeletonRig.m_head = skeletonGO.transform.Find("Head"); i = AddUp(i);
+                    newSkeletonRig.m_chest = null; i = AddUp(i);
+                    newSkeletonRig.m_pelvis = skeletonGO.transform.Find("Pelvis"); i = AddUp(i);
+                    newSkeletonRig.m_leftFoot = skeletonGO.transform.Find("Foot (left)"); i = AddUp(i);
+                    newSkeletonRig.m_rightFoot = skeletonGO.transform.Find("Hand (right)"); i = AddUp(i);
+                    newSkeletonRig.characterAnimationManager = newManager; i = AddUp(i);
+                    rigManager.gameWorldSkeletonRig = newSkeletonRig; i = AddUp(i);
                     skinned = true;
-
-                    CharacterAnimationManager questionableManager = skeleHand.GetCharacterAnimationManager();
+                    rigManager.gameObject.SetActive(true);
+                    //CharacterAnimationManager questionableManager = skeleHand.GetCharacterAnimationManager();
                     
                     MelonLogger.Log("Skin applied: " + newBodyBlender.bones.lfIndex1.name);
                     //MelonLogger.Log(newSkeletonRig.characterAnimationManager.gameObject.name);
@@ -227,6 +224,16 @@ namespace PlayerSkins
         //Log player transforms
         public override void OnLevelWasLoaded(int level)
         {
+            if (skinned)
+            {
+                if (currentLoadedBundle)
+                {
+                    currentLoadedBundle.Unload(true);
+                }
+                currentLoadedSkin = null;
+                skinned = false;
+            }
+
             Brett_neutral = GameObject.Find("[RigManager (Default Brett)]/[SkeletonRig (GameWorld Brett)]/Brett@neutral").transform;
 
             if (Brett_neutral)
@@ -247,6 +254,8 @@ namespace PlayerSkins
                     i++;
                     shadowCast_face = Brett_neutral.Find("geoGrp/brett_shadowCast_face").GetComponent<SkinnedMeshRenderer>();
                     shadowCast_hair = Brett_neutral.Find("geoGrp/brett_shadowCast_hair").GetComponent<SkinnedMeshRenderer>();
+
+                    //LoadSkin(Environment.CurrentDirectory + "\\UserData\\PlayerSkins\\ford.body");
                 }
                 catch (Exception e)
                 {
@@ -260,18 +269,8 @@ namespace PlayerSkins
             if (bodyVitals)
             {
                 bodyVitals.quickmenuEnabled = true;
-                RigManager rigManager = bodyVitals.gameObject.GetComponent<RigManager>();
-                
-            }
-
-            if (skinned)
-            {
-                if (currentLoadedBundle)
-                {
-                    currentLoadedBundle.Unload(true);
-                }
-                currentLoadedSkin = null;
-                skinned = false;
+                bodyVitals.slowTimeEnabled = true;
+                fingerCurl = bodyVitals.mngr_Rig.physicsRig.rightHand.fingerCurl;
             }
         }
         bool skinned;
@@ -284,14 +283,5 @@ namespace PlayerSkins
         SkinnedMeshRenderer shoulderStraps;
         SkinnedMeshRenderer shadowCast_hair;
         SkinnedMeshRenderer shadowCast_face;
-    }
-
-    public static class TransformExtention
-    {
-        public static void LoadTrans(this Transform original, Transform savedCopy)
-        {
-            original.position = savedCopy.position;
-            original.rotation = savedCopy.rotation;
-        }
     }
 }
