@@ -3,20 +3,20 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using MelonLoader;
 
-[assembly: AssemblyTitle(PlayerSkins.BuildInfo.Name)]
+[assembly: AssemblyTitle(PlayerModels.BuildInfo.Name)]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany(PlayerSkins.BuildInfo.Company)]
-[assembly: AssemblyProduct(PlayerSkins.BuildInfo.Name)]
-[assembly: AssemblyCopyright("Created by " + PlayerSkins.BuildInfo.Author)]
-[assembly: AssemblyTrademark(PlayerSkins.BuildInfo.Company)]
+[assembly: AssemblyCompany(PlayerModels.BuildInfo.Company)]
+[assembly: AssemblyProduct(PlayerModels.BuildInfo.Name)]
+[assembly: AssemblyCopyright("Created by " + PlayerModels.BuildInfo.Author)]
+[assembly: AssemblyTrademark(PlayerModels.BuildInfo.Company)]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 //[assembly: Guid("")]
-[assembly: AssemblyVersion(PlayerSkins.BuildInfo.Version)]
-[assembly: AssemblyFileVersion(PlayerSkins.BuildInfo.Version)]
+[assembly: AssemblyVersion(PlayerModels.BuildInfo.Version)]
+[assembly: AssemblyFileVersion(PlayerModels.BuildInfo.Version)]
 [assembly: NeutralResourcesLanguage("en")]
-[assembly: MelonModInfo(typeof(PlayerSkins.PlayerSkins), PlayerSkins.BuildInfo.Name, PlayerSkins.BuildInfo.Version, PlayerSkins.BuildInfo.Author, PlayerSkins.BuildInfo.DownloadLink)]
+[assembly: MelonModInfo(typeof(PlayerModels.PlayerModels), PlayerModels.BuildInfo.Name, PlayerModels.BuildInfo.Version, PlayerModels.BuildInfo.Author, PlayerModels.BuildInfo.DownloadLink)]
 
 
 // Create and Setup a MelonModGame to mark a Mod as Universal or Compatible with specific Games.

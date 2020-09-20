@@ -52,7 +52,6 @@ X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\bin\Debug\PlayerSk
 X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\bin\Debug\PlayerSkins.pdb
 X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\bin\Debug\UnityEngine.PhysicsModule.dll
 X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\bin\Debug\UnityEngine.UI.dll
-X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\bin\Debug\UnityEngine.AnimationModule.dll
 X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\bin\Debug\TextMeshPro-1.0.55.2017.2.0b12.dll
 X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\bin\Debug\UnityEngine.Physics2DModule.dll
 X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\bin\Debug\UnityEngine.AudioModule.dll
