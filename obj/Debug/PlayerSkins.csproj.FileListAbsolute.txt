@@ -54,7 +54,6 @@ X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\bin\Debug\UnityEng
 X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\bin\Debug\UnityEngine.UI.dll
 X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\bin\Debug\TextMeshPro-1.0.55.2017.2.0b12.dll
 X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\bin\Debug\UnityEngine.Physics2DModule.dll
-X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\bin\Debug\UnityEngine.AudioModule.dll
 X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\bin\Debug\UnityEngine.AIModule.dll
 X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\bin\Debug\UnityEngine.ParticleSystemModule.dll
 X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\bin\Debug\UnityEngine.TerrainModule.dll
@@ -87,3 +86,5 @@ X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\obj\Debug\PlayerSk
 X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\obj\Debug\PlayerSkins.csproj.CopyComplete
 X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\obj\Debug\PlayerSkins.dll
 X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\obj\Debug\PlayerSkins.pdb
+X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\bin\Debug\UnityEngine.AudioModule.dll
+X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\bin\Debug\UnityEngine.UIElementsModule.dll

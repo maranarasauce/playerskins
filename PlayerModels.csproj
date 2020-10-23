@@ -7,8 +7,8 @@
     <ProjectGuid>{C33921DC-5778-4EEC-A2D0-E0AE522CC701}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PlayerSkins</RootNamespace>
-    <AssemblyName>PlayerSkins</AssemblyName>
+    <RootNamespace>PlayerModels</RootNamespace>
+    <AssemblyName>PlayerModels</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -76,17 +76,32 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Steam\steamapps\common\BONEWORKS\BONEWORKS\MelonLoader\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.AudioModule, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\BONEWORKS\BONEWORKS\MelonLoader\Managed\UnityEngine.AudioModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>..\..\..\..\..\..\Steam\steamapps\common\BONEWORKS\BONEWORKS\MelonLoader\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.PhysicsModule, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UnityEngine.UI, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\BONEWORKS\BONEWORKS\MelonLoader\Managed\UnityEngine.PhysicsModule.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\BONEWORKS\BONEWORKS\MelonLoader\Managed\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIElementsModule">
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\BONEWORKS\BONEWORKS\MelonLoader\Managed\UnityEngine.UIElementsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\BONEWORKS\BONEWORKS\MelonLoader\Managed\UnityEngine.UIModule.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HarmonyPatch.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="playermodelcanvas" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
