@@ -15,7 +15,6 @@ X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\bin\Debug\SteamVR.
 X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\bin\Debug\ch.sycoforge.Decal.dll
 X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\bin\Debug\Il2CppSystem.Core.dll
 X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\bin\Debug\UnityEngine.IMGUIModule.dll
-X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\bin\Debug\UnityEngine.TextRenderingModule.dll
 X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\bin\Debug\Il2CppSystem.dll
 X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\bin\Debug\UnityEngine.ClothModule.dll
 X:\Games\MODDING\BONEWORK\Mod library\PlayerSkins\playerskins\bin\Debug\Oculus.VR.dll

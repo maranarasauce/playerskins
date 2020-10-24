@@ -83,6 +83,11 @@
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>..\..\..\..\..\..\Steam\steamapps\common\BONEWORKS\BONEWORKS\MelonLoader\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.PhysicsModule, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\BONEWORKS\BONEWORKS\MelonLoader\Managed\UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="UnityEngine.UI, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\BONEWORKS\BONEWORKS\MelonLoader\Managed\UnityEngine.UI.dll</HintPath>
@@ -96,12 +101,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BrettManager.cs" />
+    <Compile Include="UIHandler.cs" />
+    <Compile Include="MiscFunctions.cs" />
+    <Compile Include="SkinLoading.cs" />
     <Compile Include="HarmonyPatch.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="playermodelcanvas" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

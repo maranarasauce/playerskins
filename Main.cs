@@ -1,37 +1,40 @@
 ﻿using MelonLoader;
 using System;
 using System.IO;
-using static UnityEngine.Object;
 using UnityEngine;
 using StressLevelZero.Rig;
-using System.Linq;
 
 namespace PlayerModels
 {
     public static class BuildInfo
     {
-        public const string Name = "Custom Player Models"; // Name of the Mod.  (MUST BE SET)
-        public const string Author = "Maranara"; // Author of the Mod.  (Set as null if none)
-        public const string Company = null; // Company that made the Mod.  (Set as null if none)
-        public const string Version = "1.0"; // Version of the Mod.  (MUST BE SET)
-        public const string DownloadLink = null; // Download Link for the Mod.  (Set as null if none)
+        public const string Name = "Custom Player Models";
+        public const string Author = "Maranara";
+        public const string Company = null;
+        public const string Version = "1.0";
+        public const string DownloadLink = null;
     }
 
     public class PlayerModels : MelonMod
     {
+        #if usingBundle
         public static AssetBundle UIBundle;
+        #endif
         public static bool skinned;
+        public static string currentskinPath;
         public override void OnApplicationStart()
         {
             //Create skin category
             var menu = EasyMenu.Interfaces.AddNewInterface("Player Models", Color.red);
+            UIHandler.RegisterPrefs();
 
             //Create directory if not there already
             Directory.CreateDirectory(Environment.CurrentDirectory + "\\UserData\\PlayerModels");
             //Search directory for skin files
             var skins = Directory.GetFiles(Environment.CurrentDirectory + "\\UserData\\PlayerModels");
 
-            #region UI Bundle Loader
+#if usingBundle
+            MelonLogger.LogWarning("Using UI asset bundle!");
             var asm = typeof(PlayerModels).Assembly;
             var tempPath = System.IO.Path.Combine(Application.dataPath, "playermodelcanvas");
             using (var stream = asm.GetManifestResourceStream(asm.GetManifestResourceNames().First(x => x.Contains("playermodelcanvas"))))
@@ -43,7 +46,7 @@ namespace PlayerModels
             UIBundle = AssetBundle.LoadFromFile(tempPath);
             UIBundle.hideFlags = HideFlags.DontUnloadUnusedAsset;
             System.IO.File.Delete(tempPath);
-            #endregion
+#endif
 
             //Loop through skin files
             foreach (var skin in skins)
@@ -67,8 +70,10 @@ namespace PlayerModels
         
         public override void OnLateUpdate()
         {
-            if (skinned)
+            if (skinned && rigmanager.uiRig != null)
                 rigmanager.uiRig.OnLateUpdate();
+            if (UIHandler.a)
+                UIHandler.Update();
         }
 
         
@@ -76,7 +81,6 @@ namespace PlayerModels
         //Log player transforms
         public override void OnLevelWasLoaded(int level)
         {
-            skinned = false;
             if (SkinLoading.currentLoadedBundle != null)
             {
                 SkinLoading.currentLoadedBundle.Unload(true);
@@ -84,28 +88,33 @@ namespace PlayerModels
             }
             rigmanager = GameObject.Find("[RigManager (Default Brett)]").GetComponent<RigManager>();
             BrettManager.Brett_neutral = GameObject.Find("[RigManager (Default Brett)]/[SkeletonRig (GameWorld Brett)]/Brett@neutral").transform;
+            
+        }
 
+        public override void OnLevelWasInitialized(int level)
+        {
+            UIHandler.Summon(level, rigmanager);
             if (BrettManager.Brett_neutral)
             {
-                try
-                {
-                    rigmanager.bodyVitals.quickmenuEnabled = true;
-                }
-                catch (Exception e)
-                {
-                    MelonLogger.LogError("Caught error trying to disable the skinned mesh renderers");
-                    MelonLogger.LogError(e.Message);
-                }
+                BrettManager.FindParts();
+                rigmanager.bodyVitals.quickmenuEnabled = true;
 
-                CreateUI();
+                UIHandler.CreateUI();
+                if (skinned)
+                {
+                    UIHandler.EnableText();
+                    SkinLoading.LoadSkin(currentskinPath);
+                }
+                else
+                {
+                    UIHandler.DisableText();
+                }
             }
         }
 
-
-
-        GameObject uiPrefab;
         void CreateUI()
         {
+#if usingBundle
             GameObject persistentUI = GameObject.Find("PlayerModelWatermark");
             if (persistentUI == null)
             {
@@ -118,6 +127,7 @@ namespace PlayerModels
             {
                 persistentUI.GetComponent<Canvas>().worldCamera = Camera.current;
             }
+#endif
         }
     }
     
