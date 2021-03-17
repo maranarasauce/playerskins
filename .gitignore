@@ -9,3 +9,6 @@ obj/Debug/PlayerSkins.csprojAssemblyReference.cache
 obj/Debug/PlayerSkins.dll
 obj/Debug/PlayerSkins.pdb
 PlayerSkins.csproj
+*.dll
+*.dll
+*.dll

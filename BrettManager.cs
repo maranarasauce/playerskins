@@ -1,5 +1,4 @@
-﻿using MelonLoader;
-using StressLevelZero.SFX;
+﻿using StressLevelZero.SFX;
 using UnityEngine;
 
 namespace PlayerModels

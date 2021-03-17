@@ -4,7 +4,6 @@ using UnityEngine;
 using StressLevelZero.Player;
 using StressLevelZero.VRMK;
 using StressLevelZero.SFX;
-using UnityEngine.UI;
 
 namespace PlayerModels
 {
@@ -13,7 +12,7 @@ namespace PlayerModels
         static public GameObject currentLoadedSkin;
         static public AssetBundle currentLoadedBundle;
 
-        public static void ResetSkin()
+        public static void ClearPlayerModel()
         {
             if (PlayerModels.skinned == true && currentLoadedSkin != null)
             {
@@ -58,9 +57,10 @@ namespace PlayerModels
             }
             PlayerModels.skinned = false;
             PlayerModels.currentskinPath = null;
-            UIHandler.DisableText();
+            MelonPrefs.SetString("Player Models", "Skin", "");
+            UIGeneration.DisableCanvas();
         }
-        public static void LoadSkin(string path)
+        public static void ApplyPlayerModel(string path)
         {
             if (currentLoadedBundle != null)
             {
@@ -89,13 +89,11 @@ namespace PlayerModels
                 int i = 92;
                 try
                 {
-                    UIHandler.EnableText(); i++; i++;
+                    UIGeneration.CheckText(); i++; i++;
 
                     GameObject asset = currentLoadedBundle.LoadAsset("Assets/PlayerModels/PlayerModel.prefab").Cast<GameObject>(); i++; i++;
 
                     currentLoadedSkin = Instantiate(asset); i++; i++;
-
-                    BoneworksModdingToolkit.SimpleFixes.FixObjectShader(currentLoadedSkin); i++; i++;
 
                     CharacterAnimationManager originalManager = BrettManager.Brett_neutral.GetComponent<CharacterAnimationManager>(); i++;
                     SLZ_BodyBlender originalBodyBlender = BrettManager.Brett_neutral.GetComponent<SLZ_BodyBlender>(); i++;
@@ -123,7 +121,6 @@ namespace PlayerModels
                     originalManager.rightClosedHandTransform = currentLoadedSkin.transform.Find("SHJntGrp/MAINSHJnt/ROOTSHJnt/Spine_01SHJnt/Spine_02SHJnt/Spine_TopSHJnt/r_Arm_ClavicleSHJnt/r_AC_AuxSHJnt/r_Arm_ShoulderSHJnt/r_Arm_Elbow_CurveSHJnt/r_WristSHJnt/r_Hand_1SHJnt/r_Hand_2SHJnt"); i++; i++;
 
                     MiscFunctions.CopyComponent(originalBodyBlender, newBodyBlender); i++; i++;
-
                     newBodyBlender.elbowBlendShape = 1; i++;
                     newBodyBlender.shoulderBlendShape = 1; i++;
                     newBodyBlender.wristBlendShape = 1; i++;
@@ -146,7 +143,6 @@ namespace PlayerModels
                     newBodyBlender.lfHandMesh = currentLoadedSkin.transform.Find("geoGrp/brett_l_hand").GetComponent<SkinnedMeshRenderer>(); i++;
                     newBodyBlender.rtHandMesh = currentLoadedSkin.transform.Find("geoGrp/brett_r_hand").GetComponent<SkinnedMeshRenderer>(); i++;
                     newBodyBlender.AutoFillBones(); i++;
-                    newBodyBlender.AutoFillMkrefs(); i++;
 
                     BrettManager.MatchSFX(BrettManager.storedSFX, BrettManager.activeSFX); i++;
                     HeadSFX newHSFX = currentLoadedSkin.GetComponent<HeadSFX>(); i++; i++; i++; i++; i++; i++;
@@ -155,8 +151,8 @@ namespace PlayerModels
                         BrettManager.MatchSFX(newHSFX, BrettManager.activeSFX);
                     }
 
-                    PlayerModels.skinned = true; i++; i++;
-
+                    PlayerModels.skinned = true; i++; 
+                    MelonPrefs.SetString("Player Models", "Skin", PlayerModels.currentskinPath); i++;
                     originalBody.ArtToBlender = newBodyBlender; i++;
                     originalBody.OnStart(); i++;
                     MelonCoroutines.Start(MiscFunctions.RefreshManager(PlayerModels.rigmanager, originalManager, originalBody));

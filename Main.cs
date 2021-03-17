@@ -11,7 +11,7 @@ namespace PlayerModels
         public const string Name = "Custom Player Models";
         public const string Author = "Maranara";
         public const string Company = null;
-        public const string Version = "1.0";
+        public const string Version = "1.1";
         public const string DownloadLink = null;
     }
 
@@ -22,11 +22,12 @@ namespace PlayerModels
         #endif
         public static bool skinned;
         public static string currentskinPath;
+
         public override void OnApplicationStart()
         {
             //Create skin category
             var menu = EasyMenu.Interfaces.AddNewInterface("Player Models", Color.red);
-            UIHandler.RegisterPrefs();
+            UIGeneration.RegisterPrefs();
 
             //Create directory if not there already
             Directory.CreateDirectory(Environment.CurrentDirectory + "\\UserData\\PlayerModels");
@@ -57,23 +58,23 @@ namespace PlayerModels
                     //It is a body file, add it to the category list
                     menu.CreateFunctionElement(Path.GetFileName(skin), Color.green, null, null, () =>
                     {
-                        SkinLoading.LoadSkin(skin);
+                        SkinLoading.ApplyPlayerModel(skin);
                     });
                 }
             }
 
             menu.CreateFunctionElement("Default Skin", Color.blue, null, null, () =>
             {
-                SkinLoading.ResetSkin();
+                SkinLoading.ClearPlayerModel();
             });
         }
-        
+
         public override void OnLateUpdate()
         {
             if (skinned && rigmanager.uiRig != null)
                 rigmanager.uiRig.OnLateUpdate();
-            if (UIHandler.a)
-                UIHandler.Update();
+            if (UIGeneration.a)
+                UIGeneration.CheckAvatar();
         }
 
         
@@ -93,21 +94,21 @@ namespace PlayerModels
 
         public override void OnLevelWasInitialized(int level)
         {
-            UIHandler.Summon(level, rigmanager);
+            UIGeneration.GenerateAvatar(level, rigmanager);
             if (BrettManager.Brett_neutral)
             {
                 BrettManager.FindParts();
                 rigmanager.bodyVitals.quickmenuEnabled = true;
 
-                UIHandler.CreateUI();
-                if (skinned)
+                UIGeneration.CreateCanvas();
+                if (skinned && level != 0)
                 {
-                    UIHandler.EnableText();
-                    SkinLoading.LoadSkin(currentskinPath);
+                    UIGeneration.CheckText();
+                    SkinLoading.ApplyPlayerModel(currentskinPath);
                 }
                 else
                 {
-                    UIHandler.DisableText();
+                    UIGeneration.DisableCanvas();
                 }
             }
         }
