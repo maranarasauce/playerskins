@@ -12,3 +12,5 @@ PlayerSkins.csproj
 *.dll
 *.dll
 *.dll
+*.dll
+*.pdb

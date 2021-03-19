@@ -94,6 +94,7 @@ namespace PlayerModels
                     GameObject asset = currentLoadedBundle.LoadAsset("Assets/PlayerModels/PlayerModel.prefab").Cast<GameObject>(); i++; i++;
 
                     currentLoadedSkin = Instantiate(asset); i++; i++;
+                    BoneworksModdingToolkit.Shaders.ReplaceDummyShaders(currentLoadedSkin);
 
                     CharacterAnimationManager originalManager = BrettManager.Brett_neutral.GetComponent<CharacterAnimationManager>(); i++;
                     SLZ_BodyBlender originalBodyBlender = BrettManager.Brett_neutral.GetComponent<SLZ_BodyBlender>(); i++;
